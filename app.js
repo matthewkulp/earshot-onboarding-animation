@@ -7,7 +7,7 @@ console.log("'right' y:" + PSD.right.y);
 console.log("'user' y:" + PSD.user.y);
 
 header = new View({x:0, y:40, width:317, height:150});
-header.html = "Start Talking yyyeeeaaahhh"
+header.html = "Start Talking?"
 header.style = {
 	"color": "white",
 	"font": "30px Helvetica neue",
