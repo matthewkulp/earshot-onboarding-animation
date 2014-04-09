@@ -1,13 +1,12 @@
-// Alonso edited this again
-
-console.log("'world' y:" + PSD.world.y);
-console.log("'left1' y:" + PSD.left1.y);
-console.log("'left2' y:" + PSD.left2.y);
-console.log("'right' y:" + PSD.right.y);
-console.log("'user' y:" + PSD.user.y);
+// Finding y-coordinates of objects
+// console.log("'world' y:" + PSD.world.y);
+// console.log("'left1' y:" + PSD.left1.y);
+// console.log("'left2' y:" + PSD.left2.y);
+// console.log("'right' y:" + PSD.right.y);
+// console.log("'user' y:" + PSD.user.y);
 
 header = new View({x:0, y:40, width:317, height:150});
-header.html = "Start Talking?"
+header.html = "Start Talking"
 header.style = {
 	"color": "white",
 	"font": "30px Helvetica neue",
@@ -31,9 +30,25 @@ userText.style = {
 	"text-align" : "center"
 };
 
+userText2 = new View({x:0, y:215, width:317, height:30});
+userText2.html = "sup?"
+userText2.style = {
+	"color" : "black",
+	"font" : "18px helvetica neue",
+	"text-align" : "center"
+};
+
 leftText = new View({x:58, y:178, width:55, height:30});
 leftText.html = "bonjour"
 leftText.style = {
+	"color" : "black",
+	"font" : "13px helvetica neue",
+	"text-align" : "left"
+};
+
+leftText2 = new View({x:58, y:178, width:55, height:30});
+leftText2.html = "sippin'"
+leftText2.style = {
 	"color" : "black",
 	"font" : "13px helvetica neue",
 	"text-align" : "left"
@@ -47,10 +62,24 @@ rightText.style = {
 	"text-align" : "right"
 };
 
+rightText2 = new View({x:212, y:178, width:40, height:30});
+rightText2.html = "chillin'"
+rightText2.style = {
+	"color" : "black",
+	"font" : "13px helvetica neue",
+	"text-align" : "right"
+};
+
 
 userText.opacity = 0
+userText2.opacity = 0
+
 leftText.opacity = 0
+leftText2.opacity = 0
+
 rightText.opacity = 0
+rightText2.opacity = 0
+
 
 PSD.left1.y = -60
 PSD.leftIcon.opacity = 0
@@ -102,121 +131,137 @@ people = function () {
 			time: 700,
 		})
 		peopleAnimation.on("end", function(){
-			utils.delay(500,icons);
+			utils.delay(500, userPopUp1);
 		});
 	})
 };
 
 
-icons = function() {
-	utils.delay(0, function(){
-		PSD.userIcon.animate({
-			properties: {opacity:1},
-			time: 500,
-		})
-		userText.animate({
-			properties: {opacity:1},
-			time: 500,
+userPopUp1 = function() {
+	appear = PSD.userIcon.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	userText.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	appear.on("end", function(){
+		utils.delay(1000, leftPopup1);
+		
+		utils.delay(500, function(){
+			props = ({properties: {opacity:0}, time:100})
+			// PSD.userIcon.animate(props);
+			userText.animate(props);
 		})
 	})
+};
 	
-	utils.delay(1500, function(){
-		PSD.leftIcon.animate({
-			properties: {opacity:1},
-			time: 500,
+	
+leftPopup1 = function() {
+	appear = PSD.leftIcon.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	leftText.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	appear.on("end", function(){
+		utils.delay(500, rightPopup1);
+		
+		utils.delay(500, function(){
+			props = ({properties: {opacity:0}, time:100})
+			PSD.leftIcon.animate(props);
+			leftText.animate(props);
 		})
-		leftText.animate({
-			properties: {opacity:1},
-			time: 500,
+	})
+};
+
+rightPopup1 = function() {
+	appear = PSD.rightIcon.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	rightText.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	
+	appear.on("end", function(){
+		utils.delay(1000, userPopUp2);
+		
+		utils.delay(500, function(){
+			props = ({properties: {opacity:0}, time:100})
+			PSD.rightIcon.animate(props);
+			rightText.animate(props);
 		})
+	})
+};
+	
+	
+userPopUp2 = function () {
+	appear = userText2.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	
+	appear.on("end", function(){
+		utils.delay(1000, leftPopUp2);
+		
+		utils.delay(500, function(){
+			userText2.animate({
+				properties: {opacity:0},
+				time: 500,
+	
+			})
+		})
+	})
+};
+
+leftPopUp2 = function(){
+	appear = PSD.leftIcon.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	leftText2.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	appear.on("end", function(){
+		utils.delay(500, rightPopup2);
+
+		utils.delay(500, function(){
+			props = ({properties: {opacity:0}, time:100})
+			PSD.leftIcon.animate(props);
+			leftText2.animate(props);
+		})
+	})
+};
+
+rightPopup2 = function() {
+	appear = PSD.rightIcon.animate({
+		properties: {opacity:1},
+		time: 500,
+	})
+	rightText2.animate({
+		properties: {opacity:1},
+		time: 500,
 	})
 
-	utils.delay(2250, function(){
-		iconsAnimation = PSD.rightIcon.animate({
-			properties: {opacity:1},
-			time: 500,
+	appear.on("end", function(){
+		utils.delay(1000);
+
+		utils.delay(500, function(){
+			props = ({properties: {opacity:0}, time:100})
+			PSD.rightIcon.animate(props);
+			rightText2.animate(props);
 		})
-		rightText.animate({
-			properties: {opacity:1},
-			time: 500,
-		})
-		// iconsAnimation.on("end", function(){
-		// 	PSD.rightIcon.animate({
-		// 		properties: {opacity:0},
-		// 		time: 500,
-		// 	})
-		// 	
-		// 	PSD.leftIcon.animate({
-		// 		properties: {opacity:0},
-		// 		time: 500,
-		// 	})
-		// 	
-		// 	PSD.userIcon.animate({
-		// 		properties: {opacity:0},
-		// 		time: 500,
-		// 	})											
-		// })
 	})
-	
 };
 
 
 utils.delay(0, world);
 
-
-
-// Pass in a function to this as the first parameter
-// animate(thingToAnimate,duration,[delay],[somethingElse],callback)
-// logName = function(name,callback){
-// 	console.log(name);
-// 	callback();
-// }
-// 
-// runSecond = function(){
-// 	console.log("Is awesome");
-// }
-// 
-// runFirst("Alonso",runSecond);
-
-// class Person extends EventEmitter
-// 
-// 	goToSleep: function(){
-// 		alonso.emit 'wokeUp'
-// 	}
-// 		
-// 	
-// alonso = new Person
-
-// alonso is an object
-// alonso.on 'wokeUp', function(dsfs){
-// 	alert "OMG IS EARLY"
-// }
-// 
-// alonso.on 'wokeUp', function(sdfsd){
-// 	alert "OMG IS too early"
-// }
-// 
-// alonso.on 'wokeUp', function(time){
-// 	alert "OMG IS way early, its: " + time
-// 	
-// }
-// 
-// alonso.emit 'wokeUp', "7AM"
-
-// doOneThing(200, function(){
-// 	doAnotherThing(300, function(){
-// 		doAFourthThing(500, function(){
-// 			
-// 		})
-// 	})
-// 	
-// 	doAThirdThing(455, function(){
-// 		
-// 	})
-// })
-
-
-// 
-// alonso.goToSleep()
 
 
